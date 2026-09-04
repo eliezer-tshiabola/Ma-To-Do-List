@@ -62,7 +62,29 @@ function createTask(taskText) {
 
   const ionIcon = document.createElement("ion-icon");
   ionIcon.name = "radio-button-off-outline";
+  ionIcon.classList.add("done-task", "text-lg", "cursor-pointer");
   divTaskTitle.appendChild(ionIcon);
+
+  ionIcon.addEventListener("click", (ionEvent) => {
+    ionEvent.stopPropagation();
+    editButton.desabled = ionIcon.click;
+
+    ionIcon.classList.toggle("text-task-done");
+    taskTitle.classList.toggle("line-through");
+    taskTitle.classList.toggle("text-text-second/70");
+    taskTitle.classList.toggle("dark:text-dark-text-second/80");
+    if (ionIcon.classList.contains("text-task-done")) {
+      ionIcon.name = "checkmark-done-circle";
+      editButton.disabled = true;
+      editButton.classList.add("disabled:bg-principal/50");
+      editButton.classList.replace("edit-button", "edit-button-disabled");
+    } else {
+      ionIcon.name = "radio-button-off-outline";
+      editButton.disabled = false;
+      editButton.classList.remove("disabled:bg-principal/50");
+      editButton.classList.replace("edit-button-disabled", "edit-button");
+    }
+  });
 
   const taskTitle = document.createElement("span");
   taskTitle.textContent = taskText;
@@ -123,4 +145,16 @@ let taskStorages = JSON.parse(localStorage.getItem("taskStorages")) || [];
 
 taskStorages.forEach((taskStorage) => {
   createTask(taskStorage);
+});
+
+const doneTaskButton = document.querySelector(".done-task");
+const taskTitl = document.querySelector("#task-title");
+
+$(doneTaskButton).on("click", () => {
+  doneTaskButton.classList.toggle("text-task-done");
+  const isDone = doneTaskButton.classList.contains("text-task-done");
+  doneTaskButton.name = isDone
+    ? "checkmark-done-circle"
+    : "radio-button-off-outline";
+  taskTitl.classList.toggle("line-through");
 });

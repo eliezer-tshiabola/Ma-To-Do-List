@@ -63,7 +63,11 @@
 }
 
 @utility edit-button {
-  @apply flex-center bg-principal p-1.5 rounded-lg text-dark-text-principal cursor-pointer;
+  @apply flex-center bg-principal hover:bg-hover p-1.5 rounded-lg text-dark-text-principal cursor-pointer;
+}
+
+@utility edit-button-disabled {
+  @apply flex-center bg-principal hover:bg-hover p-1.5 rounded-lg text-dark-text-principal cursor-not-allowed;
 }
 
 @utility sup-button {

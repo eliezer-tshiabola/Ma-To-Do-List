@@ -18,7 +18,7 @@
   </head>
 
   <body
-    class="font-sora bg-bg-principal dark:bg-dark-bg-principal text-sm md:text-base text-text-second dark:text-dark-text-second overflow-hidden"
+    class="font-sora bg-bg-principal dark:bg-dark-bg-principal text-sm md:text-base text-text-second dark:text-dark-text-second"
   >
     <div
       id="add-popup-card"
@@ -27,7 +27,7 @@
       <div
         class="bg-carte dark:bg-dark-carte p-4 w-[clamp(300px,90%,700px)] rounded-2xl"
       >
-        <form class="w-full flex flex-col gap-1.5">
+        <form class="w-full flex flex-col gap-4">
           <input
             type="text"
             name="tache"
@@ -36,20 +36,12 @@
             class="border border-bordures dark:border-dark-bordures outline-0 rounded-md w-full relative h-8 pl-2 text-sm text-text-principal dark:text-dark-text-principal placeholder:text-sm placeholder:font-light"
           />
 
-          <textarea
-            name="desc"
-            rows="4"
-            id="desc"
-            placeholder="Décrivez votre tâche..."
-            class="border border-bordures dark:border-dark-bordures resize-none outline-0 rounded-md w-full relative pl-2 placeholder:text-sm placeholder:font-light"
-          ></textarea>
-
           <button
             id="add-btn-popup"
             type="submit"
-            class="flex-center gap-1.5 p-1.5 rounded-lg bg-dark-carte text-dark-text-principal cursor-pointer"
+            class="flex-center gap-1.5 p-1.5 rounded-lg bg-principal hover:bg-hover active:bg-hover duration-200 text-dark-text-principal  cursor-pointer"
           >
-            Ajouter
+            Ajouter <span class="text-xl flex-center"><i class="bi bi-folder-plus"></i></span>
           </button>
         </form>
       </div>
@@ -64,7 +56,7 @@
         <div class="flex items-center justify-end w-1/2">
           <button
             id="dark-button"
-            class="flex-center gap-1.5 p-1.5 rounded-lg border border-bordures dark:border-dark-bordures cursor-pointer"
+            class="flex-center gap-1.5 p-1.5 rounded-lg border hover:bg- border-bordures dark:border-dark-bordures cursor-pointer"
           >
             <span
               id="dark-button-title"
@@ -107,12 +99,12 @@
                 class="flex justify-between items-center gap-1.5 py-2 border-b border-bordures dark:border-dark-bordures"
               >
                 <div class="flex items-center gap-1">
-                  <ion-icon name="radio-button-off-outline"></ion-icon>
+                  <ion-icon name="radio-button-off-outline" class="done-task text-lg cursor-pointer"></ion-icon>
                   <span id="task-title">Faire le lit</span>
                 </div>
                 <div class="flex-center gap-2">
-                  <button
-                    class="flex-center bg-principal p-1.5 rounded-lg text-dark-text-principal cursor-pointer"
+                  <button 
+                    class="flex-center bg-principal hover:bg-hover p-1.5 rounded-lg text-dark-text-principal cursor-pointer"
                   >
                     <ion-icon name="create-outline"></ion-icon>
                   </button>
@@ -128,9 +120,9 @@
 
           <button
             id="add-btn"
-            class="flex-center gap-1.5 p-1.5 w-fit mx-auto rounded-lg bg-dark-carte text-dark-text-principal cursor-pointer"
+            class="flex-center gap-1.5 px-2.5 py-1.5 w-fit mt-12 mx-auto rounded-lg bg-principal hover:bg-hover active:bg-hover duration-200 text-dark-text-principal cursor-pointer"
           >
-            Ajouter une tâche <ion-icon name="add-outline"></ion-icon>
+            Ajouter une tâche <div class="flex-center p-0.5 rounded-2xl border border-bordures text-lg"><ion-icon name="add-outline"></ion-icon></div>
           </button>
         </div>
       </div>
