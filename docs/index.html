@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"
+      integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+    <title>Liste des tâches</title>
+    <script type="module" crossorigin src="/assets/index-C7jz54rL.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Bna3LP_y.css">
+  </head>
+
+  <body
+    class="font-sora bg-bg-principal dark:bg-dark-bg-principal text-sm md:text-base text-text-second dark:text-dark-text-second overflow-hidden"
+  >
+    <div
+      id="add-popup-card"
+      class="grid fixed place-items-center h-screen w-full bg-slate-400/70 dark:bg-dark-card/40 backdrop-blur-sm opacity-0 -z-20 transition duration-200"
+    >
+      <div
+        class="bg-carte dark:bg-dark-carte p-4 w-[clamp(300px,90%,700px)] rounded-2xl"
+      >
+        <form class="w-full flex flex-col gap-1.5">
+          <input
+            type="text"
+            name="tache"
+            id="task-input"
+            placeholder="Entrez une tâche"
+            class="border border-bordures dark:border-dark-bordures outline-0 rounded-md w-full relative h-8 pl-2 text-sm text-text-principal dark:text-dark-text-principal placeholder:text-sm placeholder:font-light"
+          />
+
+          <textarea
+            name="desc"
+            rows="4"
+            id="desc"
+            placeholder="Décrivez votre tâche..."
+            class="border border-bordures dark:border-dark-bordures resize-none outline-0 rounded-md w-full relative pl-2 placeholder:text-sm placeholder:font-light"
+          ></textarea>
+
+          <button
+            id="add-btn-popup"
+            type="submit"
+            class="flex-center gap-1.5 p-1.5 rounded-lg bg-dark-carte text-dark-text-principal cursor-pointer"
+          >
+            Ajouter
+          </button>
+        </form>
+      </div>
+    </div>
+    <header class="relative z-50">
+      <div
+        class="flex items-center bg-carte dark:bg-dark-carte py-3 px-4 sm:px-32 shadow-2xl/5"
+      >
+        <div class="w-1/2 text-xl font-medium text-principal">
+          <span>Hello !</span>
+        </div>
+        <div class="flex items-center justify-end w-1/2">
+          <button
+            id="dark-button"
+            class="flex-center gap-1.5 p-1.5 rounded-lg border border-bordures dark:border-dark-bordures cursor-pointer"
+          >
+            <span
+              id="dark-button-title"
+              class="text-text-principal dark:text-dark-text-principal font-medium dark:font-normal"
+              >Mode sombre</span
+            >
+            <span
+              id="dark-button-icon"
+              class="flex-center px-1.5 py-1 rounded-md bg-dark-carte dark:bg-carte text-dark-text-principal dark:text-text-principal"
+              ><ion-icon name="moon-outline"></ion-icon
+            ></span>
+          </button>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="py-10 flex-center">
+        <div
+          class="flex flex-col justify-center gap-2 bg-white dark:bg-dark-carte p-4 w-[clamp(300px,90%,700px)] rounded-2xl relative"
+        >
+          <div id="tasks-container" class="flex flex-col justify-start gap-2 ">
+            <div class="flex-center gap-2">
+              <h1
+                class="text-text-principal dark:text-dark-text-principal font-medium text-lg"
+              >
+                Ma Liste De Tâches
+              </h1>
+              <div
+                class="text-base bg-principal text-dark-text-principal px-0.5 py-px rounded"
+              >
+                <i class="fa-solid fa-list"></i>
+              </div>
+            </div>
+
+            <ul
+              id="task-list"
+              class="text-text-principal dark:text-dark-text-principal"
+            >
+              <li
+                class="flex justify-between items-center gap-1.5 py-2 border-b border-bordures dark:border-dark-bordures"
+              >
+                <div class="flex items-center gap-1">
+                  <ion-icon name="radio-button-off-outline"></ion-icon>
+                  <span id="task-title">Faire le lit</span>
+                </div>
+                <div class="flex-center gap-2">
+                  <button
+                    class="flex-center bg-principal p-1.5 rounded-lg text-dark-text-principal cursor-pointer"
+                  >
+                    <ion-icon name="create-outline"></ion-icon>
+                  </button>
+                  <button
+                    class="flex-center bg-supp p-1.5 rounded-lg text-dark-text-principal cursor-pointer"
+                  >
+                    <ion-icon name="trash-outline"></ion-icon>
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <button
+            id="add-btn"
+            class="flex-center gap-1.5 p-1.5 w-fit mx-auto rounded-lg bg-dark-carte text-dark-text-principal cursor-pointer"
+          >
+            Ajouter une tâche <ion-icon name="add-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.js"
+    ></script>
+  </body>
+</html>

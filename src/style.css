@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap");
+
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+@source "../index.html";
+@source "./**/*.{js,ts}";
+
+/* ==== Pérsonalisation des thèmes ==== */
+@theme {
+  /* == Ecriture == */
+  --font-sora: "Sora", sans-serif;
+  --breakpoint-xs: 29rem;
+  --breakpoint-2xs: 22rem;
+  --breakpoint-2md: 55rem;
+
+  /* === Couleurs === */
+
+  /* == Light Mode == */
+  --color-bg-principal: #f8fafc;
+  --color-carte: #ffffff;
+  --color-text-principal: #0f172a;
+  --color-text-second: #64748b;
+  --color-bordures: #cbd5e1;
+  --color-principal: #6366f1;
+  --color-hover: #4f46e5;
+  --color-task-done: #16a34a;
+  --color-supp: #dc2626;
+
+  /* == Dark Mode == */
+  --color-dark-bg-principal: #0f172a;
+  --color-dark-carte: #1e293b;
+  --color-dark-text-principal: #f8fafc;
+  --color-dark-text-second: #94a3b8;
+  --color-dark-bordures: #475569;
+}
+
+@utility flex-center {
+  @apply flex justify-center items-center;
+}
+
+/* ===== CLASSES UTILITAIRES DYNAMIQUES POUR LES LISTEs ===== */
+
+/* == 1. Pour la balise li */
+
+@utility list-style {
+  @apply flex justify-between items-center gap-1.5 py-2;
+}
+
+@utility list-border {
+  @apply border-b border-bordures dark:border-dark-bordures last:border-none;
+}
+
+/* == 2. Pour la div du titre de la tâche == */
+
+@utility div-task-title {
+  @apply flex items-center gap-1;
+}
+
+/* == 3. Pour la div des boutons de modification == */
+@utility div-buttons {
+  @apply flex-center gap-2;
+}
+
+@utility edit-button {
+  @apply flex-center bg-principal p-1.5 rounded-lg text-dark-text-principal cursor-pointer;
+}
+
+@utility sup-button {
+  @apply flex-center bg-supp p-1.5 rounded-lg text-dark-text-principal cursor-pointer;
+}
