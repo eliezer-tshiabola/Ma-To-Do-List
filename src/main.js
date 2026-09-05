@@ -99,6 +99,39 @@ function createTask(taskText) {
   editButton.innerHTML = '<ion-icon name="create-outline"></ion-icon>';
   divButtons.appendChild(editButton);
 
+  editButton.addEventListener("click", (editEvent) => {
+    editEvent.stopPropagation();
+
+    const bgPopupEdit = document.querySelector("#bg-popup-edit");
+    bgPopupEdit.classList.replace("-z-20", "z-20");
+    bgPopupEdit.classList.replace("opacity-0", "opacity-100");
+
+    const editInput = document.querySelector("#edit-input");
+    editInput.value = taskTitle.textContent;
+
+    const editBtnPopup = document.querySelector("#edit-btn-popup");
+    editBtnPopup.addEventListener("click", (editBntEvent) => {
+      editBntEvent.preventDefault();
+      editBntEvent.stopPropagation();
+      bgPopupEdit.classList.replace("z-20", "-z-20");
+      bgPopupEdit.classList.replace("opacity-100", "opacity-0");
+
+      if (editInput.value === "" || editInput.value === null) {
+        return;
+      }
+
+      taskTitle.textContent = editInput.value;
+      let taskStorages = JSON.parse(localStorage.getItem("taskStorages")) || [];
+      taskStorages = taskStorages.filter((supTask) => {
+        return supTask !== taskText;
+      });
+      taskStorages.push(editInput.value);
+
+      localStorage.setItem("taskStorages", JSON.stringify(taskStorages));
+
+    });
+  });
+
   const supButton = document.createElement("button");
   supButton.classList.add("sup-button");
   supButton.innerHTML = '<ion-icon name="trash-outline"></ion-icon>';
@@ -147,14 +180,14 @@ taskStorages.forEach((taskStorage) => {
   createTask(taskStorage);
 });
 
-const doneTaskButton = document.querySelector(".done-task");
-const taskTitl = document.querySelector("#task-title");
+// const doneTaskButton = document.querySelector(".done-task");
+// const taskTitl = document.querySelector("#task-title");
 
-$(doneTaskButton).on("click", () => {
-  doneTaskButton.classList.toggle("text-task-done");
-  const isDone = doneTaskButton.classList.contains("text-task-done");
-  doneTaskButton.name = isDone
-    ? "checkmark-done-circle"
-    : "radio-button-off-outline";
-  taskTitl.classList.toggle("line-through");
-});
+// $(doneTaskButton).on("click", () => {
+//   doneTaskButton.classList.toggle("text-task-done");
+//   const isDone = doneTaskButton.classList.contains("text-task-done");
+//   doneTaskButton.name = isDone
+//     ? "checkmark-done-circle"
+//     : "radio-button-off-outline";
+//   taskTitl.classList.toggle("line-through");
+// });

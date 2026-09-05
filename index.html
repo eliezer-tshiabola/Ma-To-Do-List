@@ -21,6 +21,32 @@
     class="font-sora bg-bg-principal dark:bg-dark-bg-principal text-sm md:text-base text-text-second dark:text-dark-text-second"
   >
     <div
+      id="bg-popup-edit"
+      class="grid fixed place-items-center h-screen w-full bg-slate-400/70 dark:bg-dark-card/40 backdrop-blur-sm opacity-0 -z-20 transition duration-200"
+    >
+      <div
+        class="bg-carte dark:bg-dark-carte p-4 w-[clamp(300px,90%,700px)] rounded-2xl"
+      >
+        <form class="w-full flex flex-col gap-4">
+          <input
+            type="text"
+            name="tache"
+            id="edit-input"
+            placeholder="Modifier la tâche"
+            class="border border-bordures dark:border-dark-bordures outline-0 rounded-md w-full relative h-8 pl-2 text-sm text-text-principal dark:text-dark-text-principal placeholder:text-sm placeholder:font-light"
+          />
+
+          <button
+            id="edit-btn-popup"
+            type="submit"
+            class="flex-center gap-1.5 p-1.5 rounded-lg bg-principal hover:bg-hover active:bg-hover duration-200 text-dark-text-principal  cursor-pointer"
+          >
+            Modifier <span class="text-lg flex-center"><i class="bi bi-pencil-square"></i></span>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div
       id="add-popup-card"
       class="grid fixed place-items-center h-screen w-full bg-slate-400/70 dark:bg-dark-card/40 backdrop-blur-sm opacity-0 -z-20 transition duration-200"
     >
@@ -95,7 +121,7 @@
               id="task-list"
               class="text-text-principal dark:text-dark-text-principal"
             >
-              <li
+              <!-- <li
                 class="flex justify-between items-center gap-1.5 py-2 border-b border-bordures dark:border-dark-bordures"
               >
                 <div class="flex items-center gap-1">
@@ -114,7 +140,7 @@
                     <ion-icon name="trash-outline"></ion-icon>
                   </button>
                 </div>
-              </li>
+              </li> -->
             </ul>
           </div>
 
