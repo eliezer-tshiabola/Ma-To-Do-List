@@ -122,13 +122,11 @@ function createTask(taskText) {
 
       taskTitle.textContent = editInput.value;
       let taskStorages = JSON.parse(localStorage.getItem("taskStorages")) || [];
-      taskStorages = taskStorages.filter((supTask) => {
-        return supTask !== taskText;
-      });
-      taskStorages.push(editInput.value);
+      
+      const taskIndex = taskStorages.indexOf(taskText);
+      taskStorages[taskIndex] = editInput.value;
 
       localStorage.setItem("taskStorages", JSON.stringify(taskStorages));
-
     });
   });
 
