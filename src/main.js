@@ -205,15 +205,3 @@ let taskStorages = JSON.parse(localStorage.getItem("taskStorages")) || [];
 taskStorages.forEach((taskStorage) => {
   createTask(taskStorage);
 });
-
-// const doneTaskButton = document.querySelector(".done-task");
-// const taskTitl = document.querySelector("#task-title");
-
-// $(doneTaskButton).on("click", () => {
-//   doneTaskButton.classList.toggle("text-task-done");
-//   const isDone = doneTaskButton.classList.contains("text-task-done");
-//   doneTaskButton.name = isDone
-//     ? "checkmark-done-circle"
-//     : "radio-button-off-outline";
-//   taskTitl.classList.toggle("line-through");
-// });
