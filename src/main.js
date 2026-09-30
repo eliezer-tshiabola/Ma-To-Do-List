@@ -1,4 +1,5 @@
 import "./style.css";
+
 import $ from "jquery";
 
 // ===== DARK BUTTON ===== //
@@ -44,6 +45,7 @@ const addButtonPopup = document.querySelector("#add-btn-popup");
 const addCardPopup = document.querySelector("#add-popup-card");
 const tasksContainer = document.querySelector("#tasks-container");
 
+// === 2. Click pour l'affichage du popup ADD === //
 addButton.addEventListener("click", (event) => {
   event.preventDefault();
 
@@ -51,7 +53,16 @@ addButton.addEventListener("click", (event) => {
   addCardPopup.classList.replace("opacity-0", "opacity-100");
 });
 
-function createTask(taskText) {
+function savedTask() {
+  localStorage.setItem("taskStorages", JSON.stringify(taskStorages));
+}
+
+function loadTask() {
+  return JSON.parse(localStorage.getItem("taskStorages")) || [];
+}
+
+//
+function createTask(newTask) {
   const liTask = document.createElement("li");
   liTask.classList.add("list-style", "list-border");
   taskList.appendChild(liTask);
@@ -66,38 +77,50 @@ function createTask(taskText) {
   divTaskTitle.appendChild(ionIcon);
 
   ionIcon.addEventListener("click", (ionEvent) => {
-    ionEvent.stopPropagation();
-    editButton.desabled = ionIcon.click;
+    ionEvent.stopPropagation(); // Empêche le clic sur l'icône de déclencher aussi les événements du parent.
+    editButton.desabled = ionIcon.click; // Conserve ici l'affectation existante sans changer le reste du comportement.
 
-    ionIcon.classList.toggle("text-task-done");
-    taskTitle.classList.toggle("line-through");
-    taskTitle.classList.toggle("text-text-second/70");
-    taskTitle.classList.toggle("dark:text-dark-text-second/80");
-    if (ionIcon.classList.contains("text-task-done")) {
-      ionIcon.name = "checkmark-done-circle";
-      editButton.disabled = true;
-      editButton.classList.add("disabled:bg-principal/50");
-      editButton.classList.replace("edit-button", "edit-button-disabled");
-    } else {
-      ionIcon.name = "radio-button-off-outline";
-      editButton.disabled = false;
-      editButton.classList.remove("disabled:bg-principal/50");
-      editButton.classList.replace("edit-button-disabled", "edit-button");
-    }
+    const taskDoneIndex = taskStorages.findIndex(
+      (taskDone) => taskDone.id === newTask.id, // Repère la tâche correspondante dans les données en mémoire.
+    );
+    if (taskDoneIndex === -1) return; // Arrête le traitement si cette tâche n'existe plus dans la liste.
+
+    taskStorages[taskDoneIndex].completed =
+      !taskStorages[taskDoneIndex].completed; // Inverse l'état terminé de la tâche.
+    savedTask(); // Enregistre immédiatement la liste mise à jour dans le localStorage.
+    updateTaskVisualState(taskStorages[taskDoneIndex].completed); // Met à jour l'affichage selon le nouvel état.
   });
 
   const taskTitle = document.createElement("span");
-  taskTitle.textContent = taskText;
+  taskTitle.textContent = newTask.text;
   divTaskTitle.appendChild(taskTitle);
 
   const divButtons = document.createElement("div");
   divButtons.classList.add("div-buttons");
   liTask.appendChild(divButtons);
 
+  // === Bouton de modification === //
+
   const editButton = document.createElement("button");
   editButton.classList.add("edit-button");
   editButton.innerHTML = '<ion-icon name="create-outline"></ion-icon>';
   divButtons.appendChild(editButton);
+
+  function updateTaskVisualState(isCompleted) {
+    ionIcon.name = isCompleted
+      ? "checkmark-done-circle"
+      : "radio-button-off-outline"; // Choisit l'icône de l'état.
+    editButton.disabled = isCompleted; // Désactive la modification si la tâche est terminée.
+    editButton.classList.toggle("disabled:bg-principal/50", isCompleted); // Synchronise le style désactivé.
+    editButton.classList.toggle("edit-button", !isCompleted); // Restaure la classe du bouton actif si nécessaire.
+    editButton.classList.toggle("edit-button-disabled", isCompleted); // Applique la classe du bouton désactivé.
+    ionIcon.classList.toggle("text-task-done", isCompleted); // Synchronise la couleur de l'icône.
+    taskTitle.classList.toggle("line-through", isCompleted); // Barre le titre lorsque la tâche est terminée.
+    taskTitle.classList.toggle("text-text-second/70", isCompleted); // Synchronise la couleur en thème clair.
+    taskTitle.classList.toggle("dark:text-dark-text-second/80", isCompleted); // Synchronise la couleur en thème sombre.
+  }
+
+  updateTaskVisualState(newTask.completed); // Restaure l'apparence enregistrée au chargement de la tâche.
 
   editButton.addEventListener("click", (editEvent) => {
     editEvent.stopPropagation();
@@ -122,13 +145,17 @@ function createTask(taskText) {
 
       taskTitle.textContent = editInput.value;
       let taskStorages = JSON.parse(localStorage.getItem("taskStorages")) || [];
-      
-      const taskIndex = taskStorages.indexOf(taskText);
-      taskStorages[taskIndex] = editInput.value;
+
+      const taskIndex = taskStorages.findIndex(
+        (taskEdited) => taskEdited.id === newTask.id,
+      );
+      taskStorages[taskIndex].text = editInput.value;
 
       localStorage.setItem("taskStorages", JSON.stringify(taskStorages));
     });
   });
+
+  // === Bouton de suppression === //
 
   const supButton = document.createElement("button");
   supButton.classList.add("sup-button");
@@ -139,13 +166,9 @@ function createTask(taskText) {
 
   $(supButton).on("click", () => {
     let taskStorages = JSON.parse(localStorage.getItem("taskStorages")) || [];
-    console.log(`Avant: ${taskStorages}`);
-    console.log(`Tâche à supprimer: ${taskText}`);
     taskStorages = taskStorages.filter((supTask) => {
-      return supTask !== taskText;
+      return supTask.id !== newTask.id;
     });
-
-    console.log(`Après : ${taskStorages}`);
 
     localStorage.setItem("taskStorages", JSON.stringify(taskStorages));
     liTask.remove();
@@ -163,13 +186,18 @@ addButtonPopup.addEventListener("click", (event) => {
   }
 
   let taskText = taskInput.value.trim();
+  const newTask = {
+    id: Date.now(),
+    text: taskText,
+    completed: false,
+  };
 
   let taskStorages = JSON.parse(localStorage.getItem("taskStorages")) || [];
-  taskStorages.push(taskText);
+  taskStorages.push(newTask);
 
   localStorage.setItem("taskStorages", JSON.stringify(taskStorages));
 
-  createTask(taskText);
+  createTask(newTask);
 });
 
 let taskStorages = JSON.parse(localStorage.getItem("taskStorages")) || [];
